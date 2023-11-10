@@ -35,7 +35,7 @@ local isPickSeeds = GetModConfigData("PickSeeds") --default true
 
 
 ---初始化函数放在最前面
-BagHelp:Init(GetModConfigData);
+-- BagHelp:Init(GetModConfigData);
 
 
 local TheModConfig = {} --todo
