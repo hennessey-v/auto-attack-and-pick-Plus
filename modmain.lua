@@ -32,6 +32,7 @@ local AttackKey = GetModConfigData("AttackKey") == "close" and -1 or GLOBAL[GetM
 local PickFirstConfig = GetModConfigData("PickFirst") --default false
 local isPickResources = GetModConfigData("PickResources") --default true
 local isPickSeeds = GetModConfigData("PickSeeds") --default true
+local UsedRange = GetModConfigData("UsedRange") --default true
 
 
 ---初始化函数放在最前面
@@ -177,9 +178,8 @@ end
 
 --- 战斗寻敌
 ---@param player_pos Point
----@param specified_range number | nil
 ---@param allow_ocean boolean | nil
-local function getHostile(player_pos, specified_range, allow_ocean)
+local function getHostile(player_pos, allow_ocean)
   local Dx, Dy, Dz
 
   if player_pos == nil then
@@ -188,11 +188,6 @@ local function getHostile(player_pos, specified_range, allow_ocean)
     Dx = player_pos.x
     Dy = player_pos.y
     Dz = player_pos.z
-  end
-
-  local UsedRange = 40 -- 索敌距离先固定个数
-  if specified_range ~= nil and type(specified_range) == "number" then
-    UsedRange = specified_range
   end
 
   local TargetArray = findAllEntities(Dx, Dy, Dz, UsedRange, function(target)
@@ -218,13 +213,11 @@ end
 -- TODO: 拾取物优先级
 ---@param player_pos Point
 ---@param only_full_stack boolean | nil
----@param specified_range number | nil
 ---@param extra_sorter fun(a: Prefab, b: Prefab): boolean | nil
 ---@param ignore_global_setting_filter fun(target: Prefab): boolean | nil
 local function getPickings(
   player_pos,
   only_full_stack,
-  specified_range,
   extra_sorter,
   ignore_global_setting_filter
 )
@@ -236,11 +229,6 @@ local function getPickings(
     Dz = player_pos.z
   else
     Dx, Dy, Dz = ThePlayer.Transform:GetWorldPosition()
-  end
-
-  local UsedRange = 40 --todo 距离
-  if specified_range ~= nil and type(specified_range) == "number" then
-    UsedRange = specified_range
   end
 
   local PickableArray = findAllEntities(Dx, Dy, Dz, UsedRange, function(target)

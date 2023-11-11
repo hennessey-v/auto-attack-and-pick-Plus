@@ -1,6 +1,6 @@
 name = "auto attack and pick Plus"
 author = "Rainea"
-version = "0.0.1"
+version = "0.0.2"
 forumthread = ""
 description = [[
     自动挂机打怪，自动拾取资源。其他功能开发中。。。
@@ -14,6 +14,7 @@ description = [[
     - 挂机自动行走模式：方块 米字 随机
     - 自动和猪王交易
     - 面板控制
+    - 游戏内配置拾取资源
     
 特别感谢：
     https://steamcommunity.com/sharedfiles/filedetails/?id=2416281184
@@ -36,7 +37,15 @@ end
 
 keylist[#keys + 1] = {description = "关闭", data = "close"}
 
+-- 标题函数
+local function AddSection(title)
+    return { label = title, name = "", options = { { description = "", data = 0 } }, default = 0, hover = "" }
+end
+
+
 configuration_options = {
+
+    AddSection("按键设置"),
 
     {
         name = "PickKey",
@@ -52,6 +61,8 @@ configuration_options = {
         options = keylist,
         default = "KEY_DOWN"
     },
+
+    AddSection("自动拾取设置"),
     
     ---------------------自动拾取策略 begin
     {
@@ -87,5 +98,20 @@ configuration_options = {
         default = true
     },
     ---------------------自动拾取策略 end
+
+    AddSection("其他设置"),
+
+    {
+        name = "UsedRange", --拾取优先
+        hover = "自动攻击的索敌距离和拾取资源的范围",
+        label = "攻击索敌和资源拾取距离",
+        options = {
+        { description = "10", data = 10 },
+        { description = "20", data = 20 , hover = "默认值"},
+        { description = "30", data = 30 },
+        { description = "40", data = 40 },
+        },
+        default = 20
+    },
 }
 
