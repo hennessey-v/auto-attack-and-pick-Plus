@@ -1,6 +1,6 @@
 name = "auto attack and pick Plus"
 author = "Rainea"
-version = "0.0.2"
+version = "0.0.3"
 forumthread = ""
 description = [[
     自动挂机打怪，自动拾取资源。其他功能开发中。。。
@@ -67,13 +67,13 @@ configuration_options = {
     ---------------------自动拾取策略 begin
     {
         name = "PickFirst", --拾取优先
-        hover = "开启自动拾取和自动攻击时设置才有效,可以更高效率的捡东西，且不会被攻击",
+        hover = "当同时开启自动拾取和自动攻击时设置才有效,可以更高效率的捡东西",
         label = "优先拾取（请看上面说明）",
         options = {
-        { description = "是", data = true },
-        { description = "否", data = false , hover = "默认值"},
+        { description = "优先拾取", data = true , hover = "默认值"},
+        { description = "攻击后拾取", data = false },
         },
-        default = false
+        default = true
     },
 
     {
