@@ -1,7 +1,6 @@
 name = "auto attack and pick Plus"
-author = "Rainea"
 version = "0.0.3"
-forumthread = ""
+
 description = [[
     自动挂机打怪，自动拾取资源。其他功能开发中。。。
     
@@ -21,13 +20,23 @@ description = [[
     https://github.com/tomoya92/dstmod-tutorial
     https://www.jianshu.com/p/7cb9b3f1c4cc
 ]]
+
+author = "Rainea"
+forumthread = ""
 api_version = 10
 --icon_atlas = ".xml" todo
 --icon = "cbdz0.tex" todo
 dst_compatible = true
 all_clients_require_mod = false
 client_only_mod = true
-
+-----------------------------------------------------------------------------------
+-- dev 
+folder_name = folder_name or "command_manager"
+if not folder_name:find("workshop-") then
+    name = name .. " -dev"
+end
+-----------------------------------------------------------------------------------
+-- 按键
 local string = ""
 local keys = {"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","F1","F2","F3","F4","F5","F6","F7","F8","F9","F10","F11","F12","LAlt","RAlt","LCtrl","RCtrl","LShift","RShift","Tab","Capslock","Space","Minus","Equals","Backspace","Insert","Home","Delete","End","Pageup","Pagedown","Print","Scrollock","Pause","Period","Slash","Semicolon","Leftbracket","Rightbracket","Backslash","Up","Down","Left","Right"}
 local keylist = {}
@@ -36,17 +45,23 @@ for i = 1, #keys do
 end
 
 keylist[#keys + 1] = {description = "关闭", data = "close"}
-
--- 标题函数
-local function AddSection(title)
-    return { label = title, name = "", options = { { description = "", data = 0 } }, default = 0, hover = "" }
+-----------------------------------------------------------------------------------
+-- 分段标题
+local function addTitle(title)
+	return {
+		name = "null",
+		label = title,
+		hover = nil,
+		options = {
+				{ description = "", data = 0 }
+		},
+		default = 0,
+	}
 end
-
+-----------------------------------------------------------------------------------
 
 configuration_options = {
-
-    AddSection("按键设置"),
-
+addTitle("按键设置"),
     {
         name = "PickKey",
         hover = "设置自动拾取\n",
@@ -57,13 +72,11 @@ configuration_options = {
     {
         name = "AttackKey",
         hover = "自动攻击键\n The key to open auto attack mode.",
-        label = "设置自动攻击键 Auto Attack key",
+        label = "设置自动攻击键",
         options = keylist,
         default = "KEY_DOWN"
     },
-
-    AddSection("自动拾取设置"),
-    
+addTitle("自动拾取设置"), 
     ---------------------自动拾取策略 begin
     {
         name = "PickFirst", --拾取优先
@@ -75,7 +88,6 @@ configuration_options = {
         },
         default = true
     },
-
     {
         name = "PickResources", -- 自动拾取资源
         hover = "大肉，小肉，怪物肉，象鼻，蜘蛛丝，蜘蛛卵，齿轮，各种原力",
@@ -86,7 +98,6 @@ configuration_options = {
         },
         default = true
     },
-    
     {
         name = "PickSeeds", -- 自动拾取种子
         hover = "自动拾取:拾取种子",
@@ -98,9 +109,7 @@ configuration_options = {
         default = true
     },
     ---------------------自动拾取策略 end
-
-    AddSection("其他设置"),
-
+addTitle("其他设置"),
     {
         name = "UsedRange", --拾取优先
         hover = "自动攻击的索敌距离和拾取资源的范围",
@@ -113,5 +122,12 @@ configuration_options = {
         },
         default = 20
     },
+addTitle("开发设置"),
+    {
+        name = "key_toggle",
+        label = "Tech快捷键",
+        options = keylist,
+        default = "KEY_H",
+    }
 }
 
