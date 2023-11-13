@@ -115,6 +115,7 @@ local PickingResourcesPrefabs = {
     monstermeat = true, --怪物肉
     smallmeat = true, --小肉
     spidereggsack = true, --蜘蛛卵
+    spidergland = true, --蜘蛛卵
     manrabbit_tail = true, --兔绒
     trunk_summer = true, --象鼻
     trunk_winter = true, --冬天象鼻
