@@ -138,6 +138,7 @@ setmetatable(PickingSeedsPrefabs, {
 
 --移动到背包的东西
 local MoveToBackPrefabs = {
+    monstermeat = true, --怪物肉
     bonestew = true, --炖肉汤
     cave_banana = true, --香蕉
 }
