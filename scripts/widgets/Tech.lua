@@ -55,6 +55,7 @@ local TechWidget = Class(Widget, function(self)
 
     -- 与夜视类似，营养视角也需要变量来记录当前状态
     local nutrient_mode = 0;
+    local autoAttack_mode = 0;
     -- 定义我们要添加的按钮
     local button_settings = {
         -- 切换营养视角
@@ -83,16 +84,16 @@ local TechWidget = Class(Widget, function(self)
         {
             name = '自动攻击开【测试】',
             fn = function()
-                auto:OnAttack()
+                autoAttack_mode = 1 - autoAttack_mode;
+                if autoAttack_mode == 0 then 
+                    auto:OffAttack()
+                    return '自动攻击关【测试】'
+                else
+                    auto:OnAttack()
+                    return '自动攻击开【测试】'
+                end
                 self:Close()
-                -- local success, result = pcall(function()
-                --     -- auto.playersay("自动攻击启动！")
-                --     auto:OnAttack()
-                --     self:Close()
-                -- end)
-                -- if not success then
-                --     print("发生错误:", result)
-                -- end
+
             end
         },
         -- 自动攻击off
