@@ -36,12 +36,12 @@ end
 --- Mod Config todo
 ---
 
-local PickKey = GetModConfigData("PickKey") == "close" and -1 or GLOBAL[GetModConfigData("PickKey")] --default
-local AttackKey = GetModConfigData("AttackKey") == "close" and -1 or GLOBAL[GetModConfigData("AttackKey")] --default
-local PickFirstConfig = GetModConfigData("PickFirst") --default false
-local isPickResources = GetModConfigData("PickResources") --default true
-local isPickSeeds = GetModConfigData("PickSeeds") --default true
-local UsedRange = GetModConfigData("UsedRange") --default true
+-- local PickKey = GetModConfigData("PickKey") == "close" and -1 or GLOBAL[GetModConfigData("PickKey")] --default
+-- local AttackKey = GetModConfigData("AttackKey") == "close" and -1 or GLOBAL[GetModConfigData("AttackKey")] --default
+-- local PickFirstConfig = GetModConfigData("PickFirst") --default false
+-- local isPickResources = GetModConfigData("PickResources") --default true
+-- local isPickSeeds = GetModConfigData("PickSeeds") --default true
+-- local UsedRange = GetModConfigData("UsedRange") --default true
 
 ---初始化函数放在最前面
 -- BagHelp:Init(GetModConfigData);

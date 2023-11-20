@@ -3,7 +3,7 @@ local WidgetImage = require "widgets/image"
 local ImageButton = require "widgets/imagebutton"
 local Text = require "widgets/text"
 local Widget = require "widgets/widget"
-local auto = require ("Collections/1")
+local auto = require ("Collections/auto")
 
 -- 新建一个名为NoMuTechWidget的窗口类，即我们所要显示的对话框
 local TechWidget = Class(Widget, function(self)
