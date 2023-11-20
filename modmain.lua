@@ -9,7 +9,7 @@ GLOBAL.setmetatable(env, {
 local Aikong = require("QAI-V2")
 local BagHelp = require("BagHelp")
 local DebugHelp = require("DebugHelp")
-local move = require ("Collections/move")
+local move = require ("util/move")
 local trinket_37 = require ("Collections/2")
 
 local function playersay(str)

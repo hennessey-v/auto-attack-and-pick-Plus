@@ -3,7 +3,7 @@ local WidgetImage = require "widgets/image"
 local ImageButton = require "widgets/imagebutton"
 local Text = require "widgets/text"
 local Widget = require "widgets/widget"
-local auto = require "Collections/auto"
+local auto = require ("Collections/1")
 
 -- 新建一个名为NoMuTechWidget的窗口类，即我们所要显示的对话框
 local TechWidget = Class(Widget, function(self)
@@ -79,18 +79,36 @@ local TechWidget = Class(Widget, function(self)
         --         self:Close()
         --     end
         -- },
-        -- 自动攻击
+        -- 自动攻击on
         {
-            name = '自动攻击【测试】',
+            name = '自动攻击开【测试】',
             fn = function()
-                local success, result = pcall(function()
-                    -- auto.playersay("自动攻击启动！")
-                    auto.autogo()
-                    self:Close()
-                end)
-                if not success then
-                    print("发生错误:", result)
-                end
+                auto:OnAttack()
+                self:Close()
+                -- local success, result = pcall(function()
+                --     -- auto.playersay("自动攻击启动！")
+                --     auto:OnAttack()
+                --     self:Close()
+                -- end)
+                -- if not success then
+                --     print("发生错误:", result)
+                -- end
+            end
+        },
+        -- 自动攻击off
+        {
+            name = '自动攻击关【测试】',
+            fn = function()
+                auto:OffAttack()
+                self:Close()
+                -- local success, result = pcall(function()
+                --     -- auto.playersay("自动攻击启动！")
+                --     auto:OnAttack()
+                --     self:Close()
+                -- end)
+                -- if not success then
+                --     print("发生错误:", result)
+                -- end
             end
         },
         -- 自动攻击
