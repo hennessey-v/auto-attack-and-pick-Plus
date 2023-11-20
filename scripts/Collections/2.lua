@@ -67,20 +67,24 @@ function GetItemFromContainers(containers, item, get_all)
 
 end
 
-TIP("测试","green", "开始运行")  
-local tool = "twings"
-local ThePlayer = ThePlayer
-ActionQueuer = ThePlayer.components.actionqueuer
-if not ActionQueuer then
-    TIP("测试","red", "未安装行为排队论！")  
-return end
+local trinket_37 = function()
+    TIP("测试","green", "开始运行")  
+    local tool = "twings"
+    local ThePlayer = ThePlayer
+    -- ActionQueuer = ThePlayer.components.actionqueuer
+    -- if not ActionQueuer then
+    --     TIP("测试","red", "未安装行为排队论！")  
+    -- return end
 
-local pigking = FindEntity(ThePlayer, pigking_RANGE, find_pigking)
-if not pigking then 
-    TIP("测试","red", "未发现猪王")  
-    return '测试'
+    local pigking = FindEntity(ThePlayer, pigking_RANGE, find_pigking)
+    if not pigking then 
+        TIP("测试","red", "未发现猪王")  
+        return '测试'
+    end
+
+    UseItemOnScene(tool, BufferedAction(ThePlayer, pigking, ACTIONS.GIVE, tool))
+    -- ThePlayer.components.playercontroller:RemoteControllerUseItemOnSceneFromInvTile("meat", BufferedAction(ThePlayer, pigking, ACTIONS.GIVE, "meat"))
+    TIP("测试","green", "完成")  
 end
 
-UseItemOnScene(tool, BufferedAction(ThePlayer, pigking, ACTIONS.GIVE, tool))
--- ThePlayer.components.playercontroller:RemoteControllerUseItemOnSceneFromInvTile("meat", BufferedAction(ThePlayer, pigking, ACTIONS.GIVE, "meat"))
-TIP("测试","green", "完成")  
+return trinket_37
