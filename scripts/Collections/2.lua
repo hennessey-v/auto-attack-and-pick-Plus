@@ -64,7 +64,6 @@ function GetItemFromContainers(containers, item, get_all)
     if get_all and #final_items > 0 then
         return final_items
     end
-
 end
 
 local trinket_37 = function()

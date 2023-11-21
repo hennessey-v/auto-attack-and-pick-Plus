@@ -38,10 +38,10 @@ end
 
 -- local PickKey = GetModConfigData("PickKey") == "close" and -1 or GLOBAL[GetModConfigData("PickKey")] --default
 -- local AttackKey = GetModConfigData("AttackKey") == "close" and -1 or GLOBAL[GetModConfigData("AttackKey")] --default
--- local PickFirstConfig = GetModConfigData("PickFirst") --default false
--- local isPickResources = GetModConfigData("PickResources") --default true
--- local isPickSeeds = GetModConfigData("PickSeeds") --default true
--- local UsedRange = GetModConfigData("UsedRange") --default true
+local PickFirstConfig = GetModConfigData("PickFirst") --default false
+local isPickResources = GetModConfigData("PickResources") --default true
+local isPickSeeds = GetModConfigData("PickSeeds") --default true
+local UsedRange = GetModConfigData("UsedRange") --default true
 
 ---初始化函数放在最前面
 -- BagHelp:Init(GetModConfigData);
@@ -437,8 +437,7 @@ end
 ---- 自动战斗挂机AttackKey
 ----
 
--- 开启自动攻击
-function auto:OnAttack()
+local function OnAttack()
   if ThePlayer == nil or not hasHud() then --没有界面和没有玩家对象不执行
     return
   end
@@ -449,16 +448,14 @@ function auto:OnAttack()
   TheThreads.AttackKey = ThePlayer:StartThread(autoFunc_fight)
 end
 
--- 关闭自动攻击
-function auto:OffAttack()
+local function OffAttack()
   playersay("停止自动战斗")
   KillThread(TheThreads.AttackKey)
   TheThreads.AttackKey = nil
   LockBattleSuperior = false
 end
 
--- 开启自动拾取
-function auto:OnPick()
+local function OnPick()
   if ThePlayer == nil or not hasHud() then
     return
   end
@@ -466,11 +463,59 @@ function auto:OnPick()
 end
 
 -- 关闭自动拾取
-function auto:OffPick()
+local function OffPick()
   playersay("停止拾取")
   KillThread(TheThreads.PickKey)
   TheThreads.PickKey = nil
   releaseOnPick()
 end
+
+local auto = function(mode)
+  if mode == 'OnAttack' then
+    OnAttack()
+  elseif mode == 'OffAttack' then
+    OffAttack()
+  elseif mode == 'OnPick' then
+    OnPick()
+  elseif mode == 'OffPick' then
+    OffPick()
+  end
+end
+
+-- 开启自动攻击
+-- function auto:OnAttack()
+--   if ThePlayer == nil or not hasHud() then --没有界面和没有玩家对象不执行
+--     return
+--   end
+--   if BagHelp:getHandItem() == nil then
+--     playersay("手上没有装备武器哦")
+--     return
+--   end
+--   TheThreads.AttackKey = ThePlayer:StartThread(autoFunc_fight)
+-- end
+
+-- 关闭自动攻击
+-- function auto:OffAttack()
+--   playersay("停止自动战斗")
+--   KillThread(TheThreads.AttackKey)
+--   TheThreads.AttackKey = nil
+--   LockBattleSuperior = false
+-- end
+
+-- 开启自动拾取
+-- function auto:OnPick()
+--   if ThePlayer == nil or not hasHud() then
+--     return
+--   end
+--   TheThreads.PickKey = ThePlayer:StartThread(autoFunc_Pick)
+-- end
+
+-- -- 关闭自动拾取
+-- function auto:OffPick()
+--   playersay("停止拾取")
+--   KillThread(TheThreads.PickKey)
+--   TheThreads.PickKey = nil
+--   releaseOnPick()
+-- end
 
 return auto
