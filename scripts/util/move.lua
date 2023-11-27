@@ -12,7 +12,7 @@ end
 
 local move = function( x,z )
   local pos = ThePlayer:GetPosition()
-  playersay('开始移动')
+  playersay("开始移动，移动至 x:"..pos.x+x.. " z: "..pos.z+z)
   SendRPCToServer(RPC.LeftClick, ACTIONS.WALKTO.code, pos.x+x, pos.z+z)
 end
 

@@ -112,15 +112,15 @@ local TechWidget = Class(Widget, function(self)
         -- },
         -- 换断桩
         {
-            name = '换断桩【测试】',
+            name = '换断桩',
             fn = function()
                 autoExchange_mode = 1 - autoExchange_mode;
                 if autoExchange_mode == 0 then 
                     auto:StopThread()
-                    return '自动换断桩已关【测试】'
+                    return '自动换断桩已关'
                 else
                     auto:Fn()
-                    return '自动换断桩已开【测试】'
+                    return '自动换断桩已开'
                 end
                 self:Close()
             end

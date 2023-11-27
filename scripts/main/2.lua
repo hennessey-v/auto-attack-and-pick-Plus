@@ -45,7 +45,6 @@ function exchange:Fn()
     if not npc then
         -- return TIP("自动换断桩", "red", "无法启动, 找不到猪王", "chat")
         return playersay("自动换断桩:无法启动, 找不到猪王")
-
     end
     thread =
         StartThread(
@@ -86,7 +85,9 @@ function exchange:Fn()
                     playersay("笨蛋，问问果哥哪出错了")
                 end
                 Sleep(5)
-                move(math.random(1, 2), math.random(1, 2))
+                p_util:ReturnActiveItem()
+                Sleep(0.5)
+                move(math.random(-5, 5), math.random(-5, 5))
                 Sleep(120)
             end
             StopThread()
