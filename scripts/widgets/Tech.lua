@@ -3,7 +3,6 @@ local WidgetImage = require "widgets/image"
 local ImageButton = require "widgets/imagebutton"
 local Text = require "widgets/text"
 local Widget = require "widgets/widget"
--- local auto = require "Collections/auto"
 local auto = require "Collections/2"
 
 -- 新建一个名为NoMuTechWidget的窗口类，即我们所要显示的对话框
@@ -118,11 +117,9 @@ local TechWidget = Class(Widget, function(self)
                 autoExchange_mode = 1 - autoExchange_mode;
                 if autoExchange_mode == 0 then 
                     auto:StopThread()
-                    self:Close()
                     return '自动换断桩已关【测试】'
                 else
                     auto:Fn()
-                    self:Close()
                     return '自动换断桩已开【测试】'
                 end
                 self:Close()

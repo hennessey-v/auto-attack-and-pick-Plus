@@ -50,7 +50,6 @@ local isPickResources = GetModConfigData("PickResources") --default true
 local isPickSeeds = GetModConfigData("PickSeeds") --default true
 local UsedRange = GetModConfigData("UsedRange") --default true
 local key = GetModConfigData("key_toggle") and GLOBAL[GetModConfigData("key_toggle")] or GLOBAL['KEY_H']
--- local key = GetModConfigData("key_toggle") and GLOBAL[GetModConfigData("key_toggle")] or GLOBAL['KEY_J']
 
 
 ---初始化函数放在最前面
