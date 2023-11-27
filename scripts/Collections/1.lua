@@ -1,3 +1,5 @@
+-- 自动攻击，自动捡资源
+-- Todo 迁移到面板
 local Aikong = require("QAI-V2")
 local BagHelp = require("BagHelp")
 local DebugHelp = require("DebugHelp")

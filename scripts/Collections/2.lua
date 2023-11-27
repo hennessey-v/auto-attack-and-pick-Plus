@@ -1,89 +1,81 @@
---
 -- 猪王交易 换断桩
---
-
 local TIP = require "util/tip"
+local e_util = require "libs/entutil"
+local p_util = require "libs/playerutil"
+local t_util = require "libs/tableutil"
+local move = require "util/move"
 
+local exchange = {}
+local needprefab = "twigs"
+local thread
+local id_thread = "LIGUO_AUTO_EXCHANGE"
 
--- 右键操作视野中的
-function UseItemOnScene(item, act)
-    local inventory = ThePlayer.components.inventory
-    if inventory then 
-        inventory:ControllerUseItemOnSceneFromInvTile(item, act.target, act.action.code, act.action.mod_name)
-    else 
-        ThePlayer.components.playercontroller:RemoteControllerUseItemOnSceneFromInvTile(act, item)
+------------------ 我是可爱的分界线 ----------------------
+
+local function TIPS(str)
+    TIP("自动换断桩", "yellow", str)
+end
+function exchange:StopThread(message)
+    KillThreadsWithID(id_thread)
+    if thread then
+        TIPS(message or "结束！")
     end
-end
--- 寻找附近
-local function find_pigking(inst)
-    return inst.prefab == "pigking"
+    thread = nil
 end
 
--- 获取容器
-function GetDefaultCheckingContainers()
-    return ThePlayer and {
-        ThePlayer.replica.inventory:GetActiveItem(),
-        ThePlayer.replica.inventory,
-        ThePlayer.replica.inventory:GetOverflowContainer()
-    } or {}
-end
---- copy Tony --
-function is_entity(t)
-    return t and t.is_a and t:is_a(EntityScript)
-end
--- 获取一个物品从容器
-function GetItemFromContainers(containers, item, get_all)
-
-    containers = containers or GetDefaultCheckingContainers()
-
-    local final_items = {}
-
-    for _, container in orderedPairs(containers) do
-        if type(container) == "table" then
-            if is_entity(container)then
-                if get_all then
-                    table.insert(final_items, {item = container})
-                else
-                    containers.__orderedIndex = nil
-                    return container
-                end
-            elseif container.GetItems then
-                local items = container:GetItems()
-                for i, v in orderedPairs(items) do
-                    if get_all then
-                        table.insert(final_items, {slot = i, item = v, container = container.inst})
+function exchange:Fn()
+    local npc =
+        e_util:FindEnt(
+        nil,
+        "pigking"
+        -- ,nil, nil, nil, nil, nil, function(npc) return e_util:FindEnt(npc, "moonstorm_static", 4) end
+    )
+    if not npc then
+        return TIP("自动换断桩", "red", "无法启动, 找不到猪王", "chat")
+    end
+    thread =
+        StartThread(
+        function()
+            while thread and e_util:IsValid(npc) do
+                if needprefab then
+                    local act_item = p_util:GetActiveItem()
+                    if act_item then
+                        if act_item.prefab ~= needprefab then
+                            local newit = p_util:GetSlotFromAll(needprefab)
+                            if newit then
+                                local cont = e_util:GetContainer(newit.container)
+                                if cont then
+                                    cont:SwapActiveItemWithSlot(newit.slot)
+                                end
+                            else
+                                TIP("自动换断桩", "green", "树枝呢？没树枝你拿py换吗", "chat")
+                            end
+                        else
+                            p_util:TryClick(npc, "GIVE")
+                        end
                     else
-                        items.__orderedIndex = nil
-                        containers.__orderedIndex = nil
-                        return v, i, container
+                        local newit = p_util:GetSlotFromAll(needprefab)
+                        if newit then
+                            local cont = e_util:GetContainer(newit.container)
+                            if cont then
+                                cont:TakeActiveItemFromAllOfSlot(newit.slot)
+                            end
+                            p_util:TryClick(npc, "GIVE")
+                        else
+                            TIP("自动换断桩", "green", "树枝呢？没树枝你拿py换吗", "chat")
+                        end
                     end
+                else
+                    TIP("自动换断桩", "red", "笨蛋，问问果哥哪出错了", "chat")
                 end
+                Sleep(5)
+                move(math.random(1, 2), math.random(1, 2))
+                Sleep(120)
             end
-        end
-    end
-    if get_all and #final_items > 0 then
-        return final_items
-    end
+            StopThread()
+        end,
+        id_thread
+    )
 end
 
-local trinket_37 = function()
-    TIP("测试","green", "开始运行")  
-    local tool = "twings"
-    local ThePlayer = ThePlayer
-    -- ActionQueuer = ThePlayer.components.actionqueuer
-    -- if not ActionQueuer then
-    --     TIP("测试","red", "未安装行为排队论！")  
-    -- return end
-
-    local pigking = FindEntity(ThePlayer, pigking_RANGE, find_pigking)
-    if not pigking then 
-        TIP("测试","red", "未发现猪王")  
-        return '测试'
-    end
-
-    UseItemOnScene(tool, BufferedAction(ThePlayer, pigking, ACTIONS.GIVE, tool))
-    -- ThePlayer.components.playercontroller:RemoteControllerUseItemOnSceneFromInvTile("meat", BufferedAction(ThePlayer, pigking, ACTIONS.GIVE, "meat"))
-    TIP("测试","green", "完成")  
-end
-
-return trinket_37
+return exchange

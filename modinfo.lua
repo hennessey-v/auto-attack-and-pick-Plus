@@ -1,18 +1,20 @@
 name = "auto attack and pick Plus"
-version = "0.0.3"
+version = "0.0.5"
 
 description = [[
-    自动挂机打怪，自动拾取资源。其他功能开发中。。。
+    自动挂机打怪，自动拾取资源。
+    自动和猪王换断桩（暂和自动攻击捡资源不兼容）
+    其他功能开发中。。。
     
     UP 自动捡资源/种子
     DOWN 自动攻击怪物
+    H 打开面板
     
     建议不要使用具有相同的mod，否则可能出现未知问题
 
     -- Todo
+    - 自动获取游戏公告诗词，并自动回复
     - 挂机自动行走模式：方块 米字 随机
-    - 自动和猪王交易
-    - 面板控制
     - 游戏内配置拾取资源
     
 特别感谢：
@@ -62,6 +64,13 @@ end
 
 configuration_options = {
 addTitle("按键设置"),
+    {
+        name = "key_toggle",
+        hover = "面板开关\n 自动换断桩在面板中",
+        label = "面板快捷键",
+        options = keylist,
+        default = "KEY_H",
+    },
     {
         name = "PickKey",
         hover = "设置自动拾取\n",
@@ -122,12 +131,12 @@ addTitle("其他设置"),
         },
         default = 20
     },
-addTitle("开发设置"),
-    {
-        name = "key_toggle",
-        label = "Tech快捷键",
-        options = keylist,
-        default = "KEY_H",
-    }
+-- addTitle("开发设置"),
+--     {
+--         name = "key_toggle",
+--         label = "Tech快捷键",
+--         options = keylist,
+--         default = "KEY_H",
+--     }
 }
 

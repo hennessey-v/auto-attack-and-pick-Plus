@@ -10,7 +10,6 @@ local Aikong = require("QAI-V2")
 local BagHelp = require("BagHelp")
 local DebugHelp = require("DebugHelp")
 local move = require ("util/move")
-local trinket_37 = require ("Collections/2")
 
 local function playersay(str)
   if ThePlayer.components.talker then
@@ -522,22 +521,6 @@ end
 --   local dy = Dy + math.sin(angle)
 --   inst.Transform:SetPosition(dx, dy, Dz) -- 保持原有的 z 坐标不变
 -- end
-local function MoveCharacter(inst)
-  local pos = ThePlayer:GetPosition()
-  local offset = 0.5
-  local speed = 6
-  local posies = {
-    {pos.x+offset, pos.y, pos.z+offset},
-    {pos.x+offset, pos.y, pos.z-offset},
-    {pos.x-offset, pos.y, pos.z-offset},
-    {pos.x-offset, pos.y, pos.z+offset},
-  }
-  local posID = 1
-  playersay('开始移动')
-  SendRPCToServer(RPC.LeftClick, ACTIONS.WALKTO.code, posies[posID][1], posies[posID][3])
-
-
-end
 
 ------------------------------------------------------------
 
@@ -616,9 +599,6 @@ TheInput:AddKeyUpHandler(key, function()
         if controls and controls.Tech then
             -- 根据对话框当前的显示状态（即IsNoMuTechMenuShow），对对话框进行打开（Show）或关闭（Hide）
             if controls.Tech.IsNoMuTechMenuShow then
-                -- MoveCharacter(ThePlayer)
-                -- move(1,1)
-                trinket_37()
                 controls.Tech:Hide()
                 controls.Tech.IsNoMuTechMenuShow = false
             else

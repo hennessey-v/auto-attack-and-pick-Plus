@@ -4,6 +4,7 @@ local ImageButton = require "widgets/imagebutton"
 local Text = require "widgets/text"
 local Widget = require "widgets/widget"
 -- local auto = require "Collections/auto"
+local auto = require "Collections/2"
 
 -- 新建一个名为NoMuTechWidget的窗口类，即我们所要显示的对话框
 local TechWidget = Class(Widget, function(self)
@@ -56,6 +57,7 @@ local TechWidget = Class(Widget, function(self)
     -- 与夜视类似，营养视角也需要变量来记录当前状态
     local nutrient_mode = 0;
     local autoAttack_mode = 0;
+    local autoExchange_mode = 0;
     -- 定义我们要添加的按钮
     local button_settings = {
         -- 切换营养视角
@@ -81,32 +83,49 @@ local TechWidget = Class(Widget, function(self)
         --     end
         -- },
         -- 自动攻击on
+        -- {
+        --     name = '自动攻击开【测试】',
+        --     fn = function()
+        --         autoAttack_mode = 1 - autoAttack_mode;
+        --         if autoAttack_mode == 0 then 
+        --             -- auto('OffAttack')
+        --             return '自动攻击关【测试】'
+        --         else
+        --             -- auto('OnAttack')
+        --             return '自动攻击开【测试】'
+        --         end
+        --         self:Close()
+
+        --     end
+        -- },
+        -- 自动攻击
+        -- {
+        --     name = '自动拾取【测试】',
+        --     fn = function()
+        --         local success, result = pcall(function()
+        --             -- auto('OnPick')
+        --             self:Close()
+        --         end)
+        --         if not success then
+        --             print("发生错误:", result)
+        --         end
+        --     end
+        -- },
+        -- 换断桩
         {
-            name = '自动攻击开【测试】',
+            name = '换断桩【测试】',
             fn = function()
-                autoAttack_mode = 1 - autoAttack_mode;
-                if autoAttack_mode == 0 then 
-                    -- auto('OffAttack')
-                    return '自动攻击关【测试】'
+                autoExchange_mode = 1 - autoExchange_mode;
+                if autoExchange_mode == 0 then 
+                    auto:StopThread()
+                    self:Close()
+                    return '自动换断桩已关【测试】'
                 else
-                    -- auto('OnAttack')
-                    return '自动攻击开【测试】'
+                    auto:Fn()
+                    self:Close()
+                    return '自动换断桩已开【测试】'
                 end
                 self:Close()
-
-            end
-        },
-        -- 自动攻击
-        {
-            name = '自动拾取【测试】',
-            fn = function()
-                local success, result = pcall(function()
-                    -- auto('OnPick')
-                    self:Close()
-                end)
-                if not success then
-                    print("发生错误:", result)
-                end
             end
         },
         -- 关闭本对话框
