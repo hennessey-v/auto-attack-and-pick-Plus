@@ -131,6 +131,18 @@ addTitle("其他设置"),
         },
         default = 20
     },
+	{
+		name = "sw_tip",
+		label = "屏幕提示",
+		hover = "部分提示语句的显示位置",
+		options = {
+			{description = "开启", data = "head", hover = "默认, 语句将会出现在人物头顶"},
+			{description = "自己的聊天栏", data = "chat", hover = "在聊天栏的位置(仅自己可见)"},
+			{description = "全局的聊天栏", data = "announce", hover = "警告：所有人都能看到你的提示消息！"},
+			{description = "关闭", data = false},
+		},
+		default = "head",
+	},
 -- addTitle("开发设置"),
 --     {
 --         name = "key_toggle",

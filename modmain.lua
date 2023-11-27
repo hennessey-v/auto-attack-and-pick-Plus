@@ -11,6 +11,10 @@ local BagHelp = require("BagHelp")
 local DebugHelp = require("DebugHelp")
 local move = require ("util/move")
 
+local MOD_EQUIPMENT_CONTROL = {}
+MOD_EQUIPMENT_CONTROL.MODNAME = modname
+GLOBAL.MOD_EQUIPMENT_CONTROL = MOD_EQUIPMENT_CONTROL
+
 local function playersay(str)
   if ThePlayer.components.talker then
       local success, result = pcall(function()
