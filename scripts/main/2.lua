@@ -38,6 +38,8 @@ function exchange:Fn()
         function()
             TIP("自动换断桩", "green", "启动")
             while thread and e_util:IsValid(npc) do
+                -- Todo
+                -- 判断玩家是否在忙
                 if needprefab then
                     local act_item = p_util:GetActiveItem()
                     if act_item then
