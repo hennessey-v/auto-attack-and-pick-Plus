@@ -40,6 +40,9 @@ function exchange:Fn()
             while thread and e_util:IsValid(npc) do
                 -- Todo
                 -- 判断玩家是否在忙
+                repeat
+                    Sleep(3)
+                until not p_util:IsInBusy()
                 if needprefab then
                     local act_item = p_util:GetActiveItem()
                     if act_item then

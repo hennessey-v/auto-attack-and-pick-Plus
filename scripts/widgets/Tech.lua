@@ -4,6 +4,7 @@ local ImageButton = require "widgets/imagebutton"
 local Text = require "widgets/text"
 local Widget = require "widgets/widget"
 local auto = require "main/2"
+local autoread = require "main/4"
 
 -- 新建一个名为NoMuTechWidget的窗口类，即我们所要显示的对话框
 local TechWidget = Class(Widget, function(self)
@@ -57,6 +58,7 @@ local TechWidget = Class(Widget, function(self)
     local nutrient_mode = 0;
     local autoAttack_mode = 0;
     local autoExchange_mode = 0;
+    local autoRead_mode = 0;
     -- 定义我们要添加的按钮
     local button_settings = {
         -- 切换营养视角
@@ -120,6 +122,19 @@ local TechWidget = Class(Widget, function(self)
                     self:Close()
                 else
                     auto:Fn()
+                    self:Close()
+                end
+            end
+        },
+        {
+            name = '自动读藏宝图',
+            fn = function()
+                autoRead_mode = 1 - autoRead_mode;
+                if autoRead_mode == 0 then 
+                    autoread:StopPutThread()
+                    self:Close()
+                else
+                    autoread:Fn()
                     self:Close()
                 end
             end

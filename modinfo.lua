@@ -1,19 +1,23 @@
 name = "auto attack and pick Plus"
-version = "0.0.5"
+version = "0.0.6"
 
 description = [[
-    自动挂机打怪，自动拾取资源。
-    自动和猪王换断桩（暂和自动攻击捡资源不兼容）
-    其他功能开发中。。。
+    功能：
+    - 自动挂机打怪，自动拾取资源。
+    瞎玩挂机服专供：
+    - 自动和猪王换断桩（暂和自动攻击捡资源不兼容）
+    - 迷宫自动读藏宝图（最多9张）
+
+    其他功能开发中...
     
-    UP 自动捡资源/种子
+    【按键提示】
+    UP   自动捡资源/种子
     DOWN 自动攻击怪物
-    H 打开面板
+    H    打开面板
     
     建议不要使用具有相同的mod，否则可能出现未知问题
 
     -- Todo
-    - 自动获取游戏公告诗词，并自动回复
     - 挂机自动行走模式：方块 米字 随机
     - 游戏内配置拾取资源
     
@@ -27,7 +31,7 @@ author = "Rainea"
 forumthread = ""
 api_version = 10
 --icon_atlas = ".xml" todo
---icon = "cbdz0.tex" todo
+--icon = ".tex" todo
 dst_compatible = true
 all_clients_require_mod = false
 client_only_mod = true
