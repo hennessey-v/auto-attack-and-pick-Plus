@@ -13,7 +13,7 @@ local id_thread = "LIGUO_AUTO_EXCHANGE"
 ------------------ 我是可爱的分界线 ----------------------
 
 local function TIPS(str)
-    TIP("自动换断桩", "yellow", str)
+    TIP("自动换断桩", "white", str)
 end
 function exchange:StopThread(message)
     KillThreadsWithID(id_thread)
@@ -38,11 +38,9 @@ function exchange:Fn()
         function()
             TIP("自动换断桩", "green", "启动")
             while thread and e_util:IsValid(npc) do
-                -- Todo
-                -- 判断玩家是否在忙
-                repeat
-                    Sleep(3)
-                until not p_util:IsInBusy()
+                -- repeat     -- 判断玩家是否在忙
+                --     Sleep(1)
+                -- until not p_util:IsInBusy()
                 if needprefab then
                     local act_item = p_util:GetActiveItem()
                     if act_item then
