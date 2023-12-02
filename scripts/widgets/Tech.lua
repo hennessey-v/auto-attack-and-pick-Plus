@@ -6,6 +6,7 @@ local Widget = require "widgets/widget"
 local TIP = require "util/tip"
 local auto = require "main/2"
 local autoread = require "main/4"
+local refreshTime = require "main/5"
 
 -- 新建一个名为NoMuTechWidget的窗口类，即我们所要显示的对话框
 local TechWidget = Class(Widget, function(self)
@@ -138,6 +139,13 @@ local TechWidget = Class(Widget, function(self)
                     autoread:Fn()
                     self:Close()
                 end
+            end
+        },
+        {
+            name = '输出迷宫刷新时间',
+            fn = function()
+                refreshTime:Fn()
+                self:Close()
             end
         },
         -- 关闭本对话框
