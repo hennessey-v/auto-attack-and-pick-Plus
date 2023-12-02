@@ -11,9 +11,9 @@ local auto_read_thread
 function autoread:StopPutThread(message, color)
     KillThreadsWithID(id_auto_read)
     auto_read_thread = nil
-    -- if message ~= "" then
-    --     TIP(message or "读藏宝图终止", color or "white",'') 
-    -- end
+    if message ~= "" then
+        TIP(str_auto_read, color or "white",message or "读藏宝图终止") 
+    end
 end
 
 function autoread:Fn()
@@ -29,7 +29,7 @@ function autoread:Fn()
                         repeat
                             Sleep(0.1)
                         until not p_util:IsInBusy()
-                        local book = p_util:GetItemFromAll("book_sleep")
+                        local book = p_util:GetItemFromAll(bookprefab)
                         if book then
                             local act = ACTIONS.READ
                             local buff_act = BufferedAction(ThePlayer, nil, act, book)

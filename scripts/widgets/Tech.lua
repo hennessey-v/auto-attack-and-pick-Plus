@@ -3,6 +3,7 @@ local WidgetImage = require "widgets/image"
 local ImageButton = require "widgets/imagebutton"
 local Text = require "widgets/text"
 local Widget = require "widgets/widget"
+local TIP = require "util/tip"
 local auto = require "main/2"
 local autoread = require "main/4"
 
