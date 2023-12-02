@@ -78,7 +78,7 @@ function exchange:Fn()
                 move(math.random(-5, 5), math.random(-5, 5))
                 Sleep(120)
             end
-            StopThread()
+            exchange:StopThread()
         end,
         id_thread
     )
