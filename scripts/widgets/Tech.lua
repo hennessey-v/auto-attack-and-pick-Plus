@@ -147,10 +147,10 @@ local TechWidget = Class(Widget, function(self)
             fn = function()
                 broccoli_mode = 1 - broccoli_mode;
                 if broccoli_mode == 0 then 
-                    refreshTime:StopPutThread()
+                    broccoli:StopPutThread()
                     self:Close()
                 else
-                    refreshTime:Fn()
+                    broccoli:Fn()
                     self:Close()
                 end
             end

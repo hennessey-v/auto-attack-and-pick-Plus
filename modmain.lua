@@ -13,6 +13,7 @@ local move = require ("util/move")
 
 local MOD_EQUIPMENT_CONTROL = {}
 MOD_EQUIPMENT_CONTROL.MODNAME = modname
+MOD_EQUIPMENT_CONTROL.APIURL = "http://39.106.52.23:8080"
 GLOBAL.MOD_EQUIPMENT_CONTROL = MOD_EQUIPMENT_CONTROL
 
 local function playersay(str)

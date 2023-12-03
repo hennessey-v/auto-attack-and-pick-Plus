@@ -7,6 +7,7 @@ description = [[
     瞎玩挂机服专供：
     - 自动和猪王换断桩（暂和自动攻击捡资源不兼容）
     - 迷宫自动读藏宝图（最多9张）
+    - 迷宫小店物品刷新提醒（需手动开启）
 
     其他功能开发中...
     
@@ -149,7 +150,7 @@ addTitle("其他设置"),
 		default = "head",
 	},
     {
-        name = "productid", --拾取优先
+        name = "productid",
         hover = "瞎玩挂机服迷宫小店监控物品",
         label = "监控物品",
         options = {
