@@ -6,7 +6,7 @@ local Widget = require "widgets/widget"
 local TIP = require "util/tip"
 local auto = require "main/2"
 local autoread = require "main/4"
-local refreshTime = require "main/5"
+local broccoli = require "main/5"
 
 -- 新建一个名为NoMuTechWidget的窗口类，即我们所要显示的对话框
 local TechWidget = Class(Widget, function(self)
@@ -61,6 +61,7 @@ local TechWidget = Class(Widget, function(self)
     local autoAttack_mode = 0;
     local autoExchange_mode = 0;
     local autoRead_mode = 0;
+    local broccoli_mode = 0;
     -- 定义我们要添加的按钮
     local button_settings = {
         -- 切换营养视角
@@ -142,10 +143,16 @@ local TechWidget = Class(Widget, function(self)
             end
         },
         {
-            name = '输出迷宫刷新时间',
+            name = '小店监控',
             fn = function()
-                refreshTime:Fn()
-                self:Close()
+                broccoli_mode = 1 - broccoli_mode;
+                if broccoli_mode == 0 then 
+                    refreshTime:StopPutThread()
+                    self:Close()
+                else
+                    refreshTime:Fn()
+                    self:Close()
+                end
             end
         },
         -- 关闭本对话框

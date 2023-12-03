@@ -148,6 +148,19 @@ addTitle("其他设置"),
 		},
 		default = "head",
 	},
+    {
+        name = "productid", --拾取优先
+        hover = "瞎玩挂机服迷宫小店监控物品",
+        label = "监控物品",
+        options = {
+            { description = "粉宝石", data = 451 },
+            { description = "特价粉宝石", data = 452 , hover = "默认值"},
+            { description = "强化电路", data = 366 },
+            { description = "魔眼装饰", data = 365 },
+            { description = "便携鱼缸", data = 100 },
+        },
+        default = 452
+    },
 -- addTitle("开发设置"),
 --     {
 --         name = "key_toggle",
