@@ -4,6 +4,7 @@ local _lock_huxi_auto_read = "treasuremap"
 local str_auto_read = "自动读藏宝图"
 local ent_util = require("libs/entutil")
 local TIP = require "util/tip"
+local move = require "util/move"
 
 local autoread = {}
 local id_auto_read = "LIGUO_AUTO_READ"
@@ -35,6 +36,7 @@ function autoread:Fn()
                             local buff_act = BufferedAction(ThePlayer, nil, act, book)
                             if act and buff_act then
                                 SendRPCToServer(RPC.UseItemFromInvTile, act.code, book)
+                                move(-2 + math.random() * (1 - (-2)), 1 + math.random() * (2 - 1))
                                 num = num + 1
                             end
                         else
