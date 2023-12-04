@@ -36,7 +36,7 @@ function autoread:Fn()
                             local buff_act = BufferedAction(ThePlayer, nil, act, book)
                             if act and buff_act then
                                 SendRPCToServer(RPC.UseItemFromInvTile, act.code, book)
-                                move(-2 + math.random() * (1 - (-2)), 1 + math.random() * (2 - 1))
+                                -- move(-2 + math.random() * (1 - (-2)), 1 + math.random() * (2 - 1))
                                 num = num + 1
                             end
                         else

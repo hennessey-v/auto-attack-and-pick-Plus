@@ -6,7 +6,8 @@ local Widget = require "widgets/widget"
 local TIP = require "util/tip"
 local auto = require "main/2"
 local autoread = require "main/4"
-local broccoli = require "main/5"
+-- local broccoli = require "main/5"
+local broccoli = require "main/6"
 
 -- 新建一个名为NoMuTechWidget的窗口类，即我们所要显示的对话框
 local TechWidget = Class(Widget, function(self)
