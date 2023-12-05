@@ -5,9 +5,9 @@ local Text = require "widgets/text"
 local Widget = require "widgets/widget"
 local TIP = require "util/tip"
 
-local AutoSwap = require "main/2"
-local AutoRead = require "main/4"
-local Monitor = require "main/5"
+local AutoSwap = require "main/2"--自动换断桩
+local AutoRead = require "main/3"--自动读藏宝图
+local Monitor = require "main/4"--小店监控
 -- local Monitor = require "main/6"
 
 -- 新建一个名为NoMuTechWidget的窗口类，即我们所要显示的对话框
