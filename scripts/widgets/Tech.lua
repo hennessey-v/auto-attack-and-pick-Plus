@@ -4,10 +4,11 @@ local ImageButton = require "widgets/imagebutton"
 local Text = require "widgets/text"
 local Widget = require "widgets/widget"
 local TIP = require "util/tip"
-local auto = require "main/2"
-local autoread = require "main/4"
--- local broccoli = require "main/5"
-local broccoli = require "main/6"
+
+local AutoSwap = require "main/2"
+local AutoRead = require "main/4"
+local Monitor = require "main/5"
+-- local Monitor = require "main/6"
 
 -- 新建一个名为NoMuTechWidget的窗口类，即我们所要显示的对话框
 local TechWidget = Class(Widget, function(self)
@@ -60,9 +61,9 @@ local TechWidget = Class(Widget, function(self)
     -- 与夜视类似，营养视角也需要变量来记录当前状态
     local nutrient_mode = 0;
     local autoAttack_mode = 0;
-    local autoExchange_mode = 0;
-    local autoRead_mode = 0;
-    local broccoli_mode = 0;
+    local AutoSwap_mode = 0;
+    local AutoRead_mode = 0;
+    local Monitor_mode = 0;
     -- 定义我们要添加的按钮
     local button_settings = {
         -- 切换营养视角
@@ -120,12 +121,12 @@ local TechWidget = Class(Widget, function(self)
         {
             name = '自动换断桩',
             fn = function()
-                autoExchange_mode = 1 - autoExchange_mode;
-                if autoExchange_mode == 0 then 
-                    auto:StopThread()
+                AutoSwap_mode = 1 - AutoSwap_mode;
+                if AutoSwap_mode == 0 then 
+                    AutoSwap:StopThread()
                     self:Close()
                 else
-                    auto:Fn()
+                    AutoSwap:Fn()
                     self:Close()
                 end
             end
@@ -133,12 +134,12 @@ local TechWidget = Class(Widget, function(self)
         {
             name = '自动读藏宝图',
             fn = function()
-                autoRead_mode = 1 - autoRead_mode;
-                if autoRead_mode == 0 then 
-                    autoread:StopPutThread()
+                AutoRead_mode = 1 - AutoRead_mode;
+                if AutoRead_mode == 0 then 
+                    AutoRead:StopPutThread()
                     self:Close()
                 else
-                    autoread:Fn()
+                    AutoRead:Fn()
                     self:Close()
                 end
             end
@@ -146,12 +147,12 @@ local TechWidget = Class(Widget, function(self)
         {
             name = '小店监控',
             fn = function()
-                broccoli_mode = 1 - broccoli_mode;
-                if broccoli_mode == 0 then 
-                    broccoli:StopPutThread()
+                Monitor_mode = 1 - Monitor_mode;
+                if Monitor_mode == 0 then 
+                    Monitor:StopPutThread()
                     self:Close()
                 else
-                    broccoli:Fn()
+                    Monitor:Fn()
                     self:Close()
                 end
             end

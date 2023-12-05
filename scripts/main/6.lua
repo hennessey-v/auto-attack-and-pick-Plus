@@ -4,19 +4,18 @@ local TIP = require "util/tip"
 local broccoli = {}
 local id_monitor = "LIGUO_MONITOR"
 local monitor_thread
-local productid = 451
 local productlist = {
-    100,    -- 便携鱼缸
+    -- 100,    -- 便携鱼缸
     365,    -- 魔眼装饰
     366,    -- 强化电路 
-    451,    -- 粉宝石 
+    -- 451,    -- 粉宝石 
     452,    -- 特价粉宝石
 }
 -- local productid = GetModConfigData("productid",MOD_EQUIPMENT_CONTROL.MODNAME) --要监控的物品id
 
 
 local function GetRefreshTime(callback)
-    TheSim:QueryServer("http://39.106.52.23:8080/user/mod/time?adminUsername=afk&world=3",
+    TheSim:QueryServer(LIGUO_MOD_CONFIG.APIURL.."/user/mod/time?adminUsername="..LIGUO_MOD_CONFIG.ADMIN.."&world=3",
     function(result,isSuccessful,resultCode)
         if isSuccessful and result~=nil then
             result = result + 0
@@ -31,51 +30,71 @@ local function GetRefreshTime(callback)
 end
 
 local function GetProductList(callback)
-    TheSim:QueryServer("http://39.106.52.23:8080/product/mod/list?adminUsername=afk&world=3&expire=4800&type=1",
-        function(result, isSuccessful, resultCode)
-            if isSuccessful and result ~= nil then
-                local ProductList = json.decode(result)
-                callback(ProductList)
-            else
-                callback(nil)
+    local combinedProductList = {}  -- 用于存储合并后的产品列表
+    local requestsCompleted = 0      -- 用于追踪已完成的请求数量
+
+    local function handleRequest(result, isSuccessful)
+        requestsCompleted = requestsCompleted + 1  -- 每次请求完成时增加计数器
+
+        if isSuccessful and result ~= nil then
+            local productList = json.decode(result)
+            if productList then
+                -- 合并到主列表
+                for _, product in ipairs(productList) do
+                    table.insert(combinedProductList, product)
+                end
             end
+        end
+
+        -- 所有请求都完成时调用回调函数
+        if requestsCompleted == 2 then
+            callback(combinedProductList)
+        end
+    end
+
+    -- 发起第一个请求
+    TheSim:QueryServer(LIGUO_MOD_CONFIG.APIURL.."/product/mod/list?adminUsername="..LIGUO_MOD_CONFIG.ADMIN.."&world=1&expire=4800&type=1",
+        function(result, isSuccessful, resultCode)
+            handleRequest(result, isSuccessful)
+        end,
+        "GET"
+    )
+
+    -- 发起第二个请求
+    TheSim:QueryServer(LIGUO_MOD_CONFIG.APIURL.."/product/mod/list?adminUsername="..LIGUO_MOD_CONFIG.ADMIN.."&world=3&expire=4800&type=1",
+        function(result, isSuccessful, resultCode)
+            handleRequest(result, isSuccessful)
         end,
         "GET"
     )
 end
+
 local function MonitorProducts()
-    if monitor_thread then
-        GetProductList(function(ProductList)
-            if ProductList then
-                for i, item in ipairs(ProductList) do
-                    for i=0, #(productlist) do
-                        if item["id"]==productlist[i] then
-                            TIP("小店监控","red","小店里出现了"..item["product"].."！当前剩余库存"..item["stock"].."个","chat")
-                        end
-                    end
-                end
-                -- GetRefreshTime(function(refreshTime)
-                --     if refreshTime then
-                --         if refreshTime == 0 then
-                --             Sleep(60)
-                --             GetRefreshTime(function(refreshTime)
-                --                 if refreshTime then
-                --                     Sleep(refreshTime)
-                --                 end
-                --             end)
-                --         end
-                --     else
-                --         Sleep(60)
-                --     end
-                -- end)
-                Sleep(6)
-                MonitorProducts()
-            else
-                broccoli:StopPutThread("数据获取异常，请稍后重试","red")
-            end
-        end)
+    if not monitor_thread then
+        return
     end
+
+    GetProductList(function(ProductList)
+        if not ProductList then
+            broccoli:StopPutThread("数据获取异常，请稍后重试", "red")
+            return
+        end
+
+        for i, item in ipairs(ProductList) do
+            for _, productId in ipairs(productlist) do
+                if item["id"] == productId and item["stock"] ~= 0 then
+                    TIP("小店监控", "red", "小店里出现了" .. item["product"] .. "！当前剩余库存" .. item["stock"] .. "个", "chat")
+                end
+            end
+        end
+
+        GetRefreshTime(function(refreshTime)
+            local delayTime = refreshTime+5 or 60
+            ThePlayer:DoTaskInTime(delayTime, MonitorProducts)
+        end)
+    end)
 end
+
 
 function broccoli:StopPutThread(message, color)
     KillThreadsWithID(id_monitor)

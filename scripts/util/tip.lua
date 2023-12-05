@@ -25,7 +25,7 @@ function Say(str)
 end
 
 return function(stat, color, content, way)
-    local loca = GetModConfigData("sw_tip",MOD_EQUIPMENT_CONTROL.MODNAME)
+    local loca = GetModConfigData("sw_tip",LIGUO_MOD_CONFIG.MODNAME)
     if not loca then return end
     local tcolor = COLORS[string.upper(color)]
     if way then loca = way end

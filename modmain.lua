@@ -11,10 +11,11 @@ local BagHelp = require("BagHelp")
 local DebugHelp = require("DebugHelp")
 local move = require ("util/move")
 
-local MOD_EQUIPMENT_CONTROL = {}
-MOD_EQUIPMENT_CONTROL.MODNAME = modname
-MOD_EQUIPMENT_CONTROL.APIURL = "http://39.106.52.23:8080"
-GLOBAL.MOD_EQUIPMENT_CONTROL = MOD_EQUIPMENT_CONTROL
+local LIGUO_MOD_CONFIG = {}
+LIGUO_MOD_CONFIG.MODNAME = modname
+LIGUO_MOD_CONFIG.APIURL = "http://39.106.52.23:8080"
+LIGUO_MOD_CONFIG.ADMIN = "afk"
+GLOBAL.LIGUO_MOD_CONFIG = LIGUO_MOD_CONFIG
 
 local function playersay(str)
   if ThePlayer.components.talker then
