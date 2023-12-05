@@ -27,7 +27,7 @@ local TechWidget = Class(Widget, function(self)
     self.shield_pos_x = 0;
     self.shield_pos_y = 0;
     self.shield_size_x = 200;
-    self.shield_size_y = 210;
+    self.shield_size_y = 260;
     -- 遮罩为由images/ui.xml和black.tex描述的一张图片
     self.shield = self.root:AddChild(WidgetImage("images/ui.xml", "black.tex"))
     -- 下面几行设置遮罩的缩放尺度、位置、大小和透明度
