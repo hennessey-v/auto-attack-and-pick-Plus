@@ -3,7 +3,7 @@ local _lock_huxi_auto_read = "treasuremap"
 -- local _lock_huxi_auto_read = "book_sleep"
 local str_auto_read = "自动读藏宝图"
 local ent_util = require("libs/entutil")
-local TIP = require "util/tip"
+local TIP = require "util/until-tip"
 
 local autoread = {}
 local id_auto_read = "LIGUO_AUTO_READ"

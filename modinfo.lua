@@ -1,5 +1,5 @@
 name = "auto attack and pick Plus"
-version = "0.0.7.1"
+version = "0.0.8"
 
 description = [[
     功能：

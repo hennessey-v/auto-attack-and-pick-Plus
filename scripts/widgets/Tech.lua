@@ -3,7 +3,7 @@ local WidgetImage = require "widgets/image"
 local ImageButton = require "widgets/imagebutton"
 local Text = require "widgets/text"
 local Widget = require "widgets/widget"
-local TIP = require "util/tip"
+local TIP = require "util/until-tip"
 
 local AutoSwap = require "main/2"--自动换断桩
 local AutoRead = require "main/3"--自动读藏宝图

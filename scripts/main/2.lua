@@ -3,7 +3,7 @@ local e_util = require "libs/entutil"
 local p_util = require "libs/playerutil"
 local t_util = require "libs/tableutil"
 local move = require "util/move"
-local TIP = require "util/tip"
+local TIP = require "util/until-tip"
 
 local exchange = {}
 local needprefab = "twigs"
@@ -76,7 +76,7 @@ function exchange:Fn()
                 p_util:ReturnActiveItem()
                 Sleep(0.5)
                 move(math.random(-5, 5), math.random(-5, 5))
-                Sleep(120)
+                Sleep(60)
             end
             exchange:StopThread()
         end,

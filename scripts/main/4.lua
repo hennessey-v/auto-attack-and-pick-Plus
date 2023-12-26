@@ -1,5 +1,5 @@
 -- 监控特定商品
-local TIP = require "util/tip"
+local TIP = require "util/until-tip"
 
 local broccoli = {}
 local id_monitor = "LIGUO_MONITOR"
